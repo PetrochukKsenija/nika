@@ -1,0 +1,35 @@
+services:
+  problem-solver:
+    image: ostis/nika:0.1.0
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+      target: devcontainer
+    container_name: nika-problem-solver-devcontainer
+    restart: unless-stopped
+    volumes:
+      - ./kb:/nika/kb
+      - kb-binary:/kb.bin
+      - ./repo.path:/nika/repo.path
+      - .:/workspace:cached
+      - devcontainer-cache:/ccache
+    networks:
+      - nika
+    ports:
+      - "8090:8090"
+    network_mode: service:another-service
+    expose:
+      - 8090
+    healthcheck:
+      test: "true"
+      interval: 5s
+      timeout: 10s
+      retries: 6
+      start_period: 120s
+    environment:
+      # Use the commented env variable if you need to rebuild KB every startup.
+      - "REBUILD_KB=1"
+      - "KB_PATH=../repo.path"
+    entrypoint: /bin/sh -c "while sleep 1000; do :; done"
+volumes:
+  devcontainer-ccache
