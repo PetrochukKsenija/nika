@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 source set_vars.sh
+
+"${SC_MACHINE_PATH}/scripts/install_deps_ubuntu.sh" $@
+
 packagelist=(
 	python3-pip
 	python3-setuptools
-	build-essential
-	cmake
-	nlohmann-json3-dev
 	libssl-dev
 	file
 )

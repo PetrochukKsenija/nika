@@ -18,7 +18,6 @@ build_problem_solver()
 {
 	cd "${APP_ROOT_PATH}"/scripts
 	./install_deps_ubuntu.sh
-	"${SC_MACHINE_PATH}/scripts/install_deps_ubuntu.sh" --dev
 	./build_problem_solver.sh
 }
 
@@ -36,8 +35,6 @@ set -eo pipefail
 cd "${APP_ROOT_PATH}"
 
 git submodule update --init --recursive
-build_problem_solver
-build_sc_web
 
 while [ "$1" != "" ]; do
 	case $1 in
